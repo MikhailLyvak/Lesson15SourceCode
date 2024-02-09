@@ -5,10 +5,12 @@
 <div class="card">
   <div class="card-header">
     <div class="row">
-      <div class="col-6">
+      <div class="col-3">
         To buy list table
       </div>
-      <div class="col-6 text-end">
+      <div class="col-2">Sum: {{ total_sum }} $</div>
+      <div class="col-3">Amount: {{ total_amount }} pcs.</div>
+      <div class="col-4 text-end">
         <div class="d-flex justify-content-end">
           <a href="{% url 'app_to_buy_list:item-create' %}" class="btn btn-primary">Add item</a>
         </div>
@@ -20,9 +22,12 @@
       <thead>
         <tr>
           <th>Name</th>
-          <th>Description</th>
           <th>Price</th>
           <th>Item Type</th>
+          <th>Update</th>
+          <th>Detail</th>
+          <th>Status</th>
+          <th>Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -33,17 +38,26 @@
             {{ item.name }}
           </td>
           <td>
-            {% if not item.discription %}
-            -==-
-            {% else %}
-            {{ item.discription }}
-            {% endif %}
-          </td>
-          <td>
             {{ item.price }}
           </td>
           <td>
             {{ item.item_type.name }}
+          </td>
+          <td>
+            <a class="text-warning" href="{% url 'app_to_buy_list:item-update' pk=item.pk %}">Update</a>
+          </td>
+          <td>
+            <a class="text-info" href="{% url 'app_to_buy_list:item-detail' pk=item.pk %}">Detail</a>
+          </td>
+          <td>
+            {% if item.is_bought %}
+            <button class="btn btn-success" disabled>Bought!</button>
+            {% else %}
+            <a class="btn btn-primary" href="{% url 'app_to_buy_list:mark-as-bought' pk=item.pk %}">Buy</a>
+            {% endif %}
+          </td>
+          <td>
+            <a class="text-danger" href="{% url 'app_to_buy_list:item-delete' pk=item.pk %}">Delete</a>
           </td>
         </tr>
         {% endfor %}

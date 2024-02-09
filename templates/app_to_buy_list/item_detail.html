@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        Item Create Page
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered vertical-table">
+            <tbody>
+                <tr>
+                    <th scope="row">Name</th>
+                    <td>{{ item.name }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Price</th>
+                    <td>{{ item.price }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Description</th>
+                    <td>{{ item.discription }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Price</th>
+                    <td>{{ item.price }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Type</th>
+                    <td>{{ item.item_type }}</td>
+                </tr>
+                {% if item.is_bought %}
+                <tr>
+                    <th scope="row">Buy date</th>
+                    <td>{{ item.bought_date|date:"Y-m-d" }}</td>
+                </tr>
+                {% endif %}
+
+
+            </tbody>
+        </table>
+        <div class="row m-3">
+            <a class="btn btn-danger" href="{% url 'app_to_buy_list:item-list' %}">Back to list</a>
+            {% if item.link %}
+                <a class="btn btn-info ml-3" href="{{ item.link }}">Bay item</a>
+            {% endif %}
+            
+        </div>
+    </div>
+</div>
+{% endblock content %}
